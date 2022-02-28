@@ -3,6 +3,8 @@
 
 namespace Osoobe\Linkable\Traits;
 
+use Osoobe\Linkable\Models\Link;
+
 trait HasLinks {
 
     /**
