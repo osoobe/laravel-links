@@ -12,9 +12,9 @@ trait HasLinks {
      */
     public function links()
     {
-        return $this->morphMany(Link::class, 'linkable');
+        return $this->morphMany(config('links.link_model', Link::class), 'linkable');
     }
-    
+
 }
 
 

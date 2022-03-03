@@ -11,6 +11,7 @@ use Osoobe\LaravelTraits\Support\TimeDiff;
 use Osoobe\LaravelTraits\Support\Userstamp;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Tags\HasTags;
 
 class Link extends Model
 {
@@ -49,7 +50,7 @@ class Link extends Model
 
     /**
      * Get the parent linkable model (job).
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function linkable()
@@ -82,5 +83,28 @@ class Link extends Model
         }
         return $hostTitle;
     }
+
+
+
+    /**
+     * Create Notification Settings.
+     *
+     * @todo create notification setting package.
+     * @return void
+     */
+    protected static function boot(): void {
+        parent::boot();
+        $func = function ($model) {
+            if ( !empty($model->url) ) {
+                $parse = parse_url($model->url);
+                $host = $parse['host'];
+                $model->source = $host;
+            }
+        };
+
+        static::creating($func);
+        static::updating($func);
+    }
+
 
 }

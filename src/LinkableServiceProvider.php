@@ -23,6 +23,10 @@ class LinkableServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/../config/links.php' => config_path('links.php'),
+        ]);
+
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 }
